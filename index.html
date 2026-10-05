@@ -29,10 +29,10 @@
   --font-b:'Inter',system-ui,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;overflow-x:hidden}
+html{scroll-behavior:smooth;overflow-x:clip}
 body{
   background:var(--bg);color:var(--ink);font-family:var(--font-b);
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:clip;line-height:1.6;
 }
 body.locked{overflow:hidden}
 ::selection{background:var(--blue);color:#fff}
@@ -79,7 +79,7 @@ h1,h2,h3,h4{font-family:var(--font-d);font-weight:600;line-height:1.05;letter-sp
 }
 
 /* ---------- CURSOR ---------- */
-.cur-dot,.cur-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:300;border-radius:50%;mix-blend-mode:difference}
+.cur-dot,.cur-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:300;border-radius:50%;mix-blend-mode:difference;opacity:0;transition:opacity .3s}
 .cur-dot{width:6px;height:6px;background:#fff;transform:translate(-50%,-50%)}
 .cur-ring{width:34px;height:34px;border:1px solid rgba(255,255,255,.7);transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,opacity .3s}
 .cur-ring.grow{width:64px;height:64px;border-color:var(--orange)}
@@ -366,10 +366,10 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
   radial-gradient(50% 50% at 25% 25%,rgba(46,91,255,.5),transparent 70%),#080b16}
 .uc-card .art::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 30%,rgba(4,5,10,.88) 78%);
+  background:linear-gradient(180deg,transparent 34%,rgba(4,5,10,.93) 74%);
 }
 .uc-screen{
-  position:absolute;top:14%;left:50%;transform:translateX(-50%);width:74%;aspect-ratio:16/10;
+  position:absolute;top:9%;left:50%;transform:translateX(-50%);width:66%;aspect-ratio:16/9;
   border-radius:10px;border:1px solid rgba(255,255,255,.25);
   background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.04));
   backdrop-filter:blur(4px);box-shadow:0 24px 60px rgba(0,0,0,.55);
@@ -402,6 +402,8 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 
 /* ---------- ECOSYSTEM ---------- */
 .eco-chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:46px}
+#eco{padding-bottom:clamp(40px,6vh,70px)}
+#reviews{padding-top:clamp(50px,7vh,90px)}
 .eco-chips span{
   border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:99px;
   padding:14px 26px;font-family:var(--font-d);font-size:.95rem;
@@ -484,7 +486,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .done-pane p{color:var(--muted);font-weight:300;max-width:52ch;margin:0 auto 24px}
 .msg-preview{
   text-align:left;background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:16px;
-  padding:20px;font-size:.88rem;color:#cfd4e3;white-space:pre-wrap;overflow-wrap:break-word;max-height:190px;overflow-y:auto;overflow-x:hidden;margin-bottom:24px;
+  padding:20px;font-size:.88rem;color:#cfd4e3;white-space:pre-wrap;overflow-wrap:break-word;max-height:250px;overflow-y:auto;overflow-x:hidden;margin-bottom:24px;scrollbar-width:thin;scrollbar-color:rgba(91,140,255,.5) transparent;
 }
 .done-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
@@ -498,6 +500,8 @@ footer{
 .foot-col h5{font-family:var(--font-d);font-size:.78rem;letter-spacing:.26em;text-transform:uppercase;color:#fff;margin-bottom:18px}
 .foot-col a{display:block;font-size:.9rem;color:var(--muted);padding:6px 0;transition:.25s}
 .foot-col a:hover{color:var(--orange);transform:translateX(4px)}
+.foot-col button{display:block;background:none;border:0;padding:6px 0;font:inherit;font-size:.9rem;color:var(--muted);cursor:pointer;text-align:left;transition:.25s}
+.foot-col button:hover{color:var(--orange);transform:translateX(4px)}
 .foot-bottom{
   max-width:1200px;margin:52px auto 0;padding-top:26px;border-top:1px solid var(--line);
   display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);
@@ -553,7 +557,8 @@ footer{
   .foot-grid{grid-template-columns:1fr}
   #fab .mini{display:none}
   #fab .cta span{display:none}
-  #fab .cta{width:54px;height:54px;padding:0;justify-content:center;border-radius:50%}
+  #fab .cta{width:46px;height:46px;padding:0;justify-content:center;border-radius:50%;right:14px;bottom:14px}
+  #fab{right:14px;bottom:14px}
   .step-nav .btn{width:100%}
 }
 @media (prefers-reduced-motion:reduce){
@@ -630,7 +635,7 @@ footer{
 <section id="hero" data-sec data-3d="hero">
   <div class="hero-kicker reveal"><i>NOVO</i> VITURE PRO 2 · EDIÇÃO V · MICRO OLED SONY</div>
   <h1 class="reveal d1">UltraClarity 3.0. <span class="thin">Nitidez sem igual.</span></h1>
-  <p class="hero-sub reveal d2">O clássico, evoluído. 1600 nits, campo de visão de 50° e 63 gramas que você esquece que está usando — em forma de um par de óculos XR.</p>
+  <p class="hero-sub reveal d2">O clássico, evoluído. 1.600 nits, campo de visão de 50° e 63 gramas que você esquece que está usando — em forma de um par de óculos XR.</p>
   <div class="hero-ctas reveal d3">
     <a class="btn btn-orange" href="#specs">Conhecer a tecnologia</a>
     <a class="btn btn-ghost" href="#view360">Girar em 360°</a>
@@ -685,7 +690,7 @@ footer{
       <div class="fake-ui" id="fakeUI">
         <h4>Bem-vindo ao seu novo monitor de 130 polegadas.</h4>
         <p>Texto, código, subtítulos e interfaces — perfeitamente legíveis, do centro até o canto da tela. Sem esforço, sem halos, sem fadiga no terceiro episódio.</p>
-        <div class="row"><span class="pill">Micro OLED</span><span class="pill">1600 nits</span><span class="pill">120 Hz</span><span class="pill">Sem cintilação</span></div>
+        <div class="row"><span class="pill">Micro OLED</span><span class="pill">1.600 nits</span><span class="pill">120 Hz</span><span class="pill">Sem cintilação</span></div>
       </div>
       <div class="dio-slider">
         <div class="head"><span>Ajuste de dioptria</span><b id="dioVal">0.0D</b></div>
@@ -741,7 +746,7 @@ footer{
     <div class="uc-card tilt reveal d1">
       <div class="art g2"></div><div class="uc-screen"><span class="uc-label">4K · HDR</span><div class="win"><i></i><i></i><i></i><b></b></div></div>
       <span class="tag">Entretenimento</span><h3>Maratona no avião, sem jet lag de olho</h3>
-      <p>Cinema privativo a 1600 nits enquanto a bateria do seu device carrega no dock.</p>
+      <p>Cinema privativo a 1.600 nits enquanto a bateria do seu device carrega no dock.</p>
     </div>
     <div class="uc-card tilt reveal d2">
       <div class="art g3"></div><div class="uc-screen"><span class="uc-label">3 TELAS</span><div class="win"><i></i><i></i><i></i><b></b></div></div>
@@ -773,7 +778,7 @@ footer{
     </div>
     <div class="rev-card reveal d1">
       <div class="stars">★★★★★</div>
-      <p>"Vibe coding no trem com três telas. O dioptrio embutido acabou com meu óculos de grau embaixo. Absurdo."</p>
+      <p>"Vibe coding no trem com três telas. A dioptria embutida acabou com meu óculos de grau embaixo. Absurdo."</p>
       <div class="who"><span class="av">TL</span><div><b>Thiago L.</b><span>Avaliação verificada · Dev full-stack</span></div></div>
     </div>
     <div class="rev-card reveal d2">
@@ -890,7 +895,7 @@ footer{
     </div>
     <div class="foot-col">
       <h5>Compartilhe</h5>
-      <a href="#" id="shareWa2">WhatsApp</a><a href="#" id="copyLink2">Copiar link</a><a href="#hero">Voltar ao topo ↑</a>
+      <button type="button" id="shareWa2">WhatsApp</button><button type="button" id="copyLink2">Copiar link</button><a href="#hero">Voltar ao topo ↑</a>
     </div>
   </div>
   <div class="foot-bottom">
@@ -931,9 +936,10 @@ footer{
   setTimeout(finishLoader,5200);
 
   /* CURSOR */
-  var dot=$('#curDot'),ring=$('#curRing'),cx=0,cy=0,rx=0,ry=0;
+  var dot=$('#curDot'),ring=$('#curRing'),cx=0,cy=0,rx=0,ry=0,cursorShown=false;
   if(matchMedia('(hover:hover) and (pointer:fine)').matches){
     document.addEventListener('mousemove',function(e){
+      if(!cursorShown){cursorShown=true;dot.style.opacity=1;ring.style.opacity=1;}
       cx=e.clientX;cy=e.clientY;
       dot.style.transform='translate('+(cx-3)+'px,'+(cy-3)+'px)';
     });
@@ -1306,7 +1312,7 @@ if (renderer) {
   composer.addPass(bloom);
 
   const STATES = {
-    hero:      { x: 1.7,  y:-.1,  s:.8,  ry:-.5,  rx:.12, op:1,   int:true  },
+    hero:      { x: 1.95, y:-.1,  s:.8,  ry:-.5,  rx:.12, op:1,   int:true  },
     manifesto: { x: 0,    y: 0,   s:1.55, ry:.4,   rx:.06, op:.14, int:false },
     specs:     { x: 2.4,  y: .05, s:.5,  ry:.5,   rx:-.06,op:.3,  int:false },
     diopter:   { x: 0,    y: 0,   s:.8,   ry:.5,   rx:.1,  op:0,   int:false },
@@ -1401,7 +1407,7 @@ if (renderer) {
     glasses.position.set(current.x, current.y + (reduce?0:Math.sin(t*.9)*.06), 0);
     glasses.scale.setScalar(current.s);
     const par = interactive?0:.16;
-    var sway = reduce ? 0 : Math.sin(t*.45)*.17*current.op;
+    var sway = reduce ? 0 : Math.sin(t*.45)*.10*current.op;
     glasses.rotation.y = current.ry + userRY + sway + (reduce?0:mx*par);
     glasses.rotation.x = current.rx + userRX*.6 + (reduce?0:my*par*.7) + (reduce?0:Math.sin(t*.7)*.02);
 
