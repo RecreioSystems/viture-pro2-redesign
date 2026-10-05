@@ -29,7 +29,7 @@
   --font-b:'Inter',system-ui,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{
   background:var(--bg);color:var(--ink);font-family:var(--font-b);
   -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;
@@ -330,8 +330,11 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .weight-feats span{font-size:.84rem;color:var(--muted);font-weight:300}
 
 /* ---------- 360 ---------- */
-#view360{min-height:96svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+#view360{min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;padding-top:13vh;padding-bottom:7vh}
+.v360-top{max-width:760px}
+.v360-bottom{display:flex;flex-direction:column;align-items:center}
 #view360 h2,#view360 p,#view360 .kicker,#view360 .view360-tags{text-shadow:0 2px 18px rgba(0,0,0,.85)}
+.v360-bottom .view360-tags{margin-top:26px}
 #view360 .hint-circle{
   width:120px;height:120px;border-radius:50%;border:1px dashed rgba(255,255,255,.35);
   display:grid;place-items:center;margin:44px auto 0;position:relative;
@@ -347,7 +350,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .uc-card{
   border-radius:24px;border:1px solid var(--line);overflow:hidden;position:relative;
   min-height:380px;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:28px;transition:transform .35s,border-color .35s;transform-style:preserve-3d;
+  padding:28px;transition:transform .35s,border-color .35s;
 }
 .uc-card .art{position:absolute;inset:0;z-index:0;transition:transform .6s}
 .uc-card:hover{border-color:rgba(91,140,255,.5)}
@@ -370,9 +373,21 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
   border-radius:10px;border:1px solid rgba(255,255,255,.25);
   background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.04));
   backdrop-filter:blur(4px);box-shadow:0 24px 60px rgba(0,0,0,.55);
-  display:grid;place-items:center;font-family:var(--font-d);font-size:.78rem;letter-spacing:.2em;
-  color:rgba(255,255,255,.9);text-transform:uppercase;padding-top:26px;overflow:hidden;
+  font-family:var(--font-d);font-size:.78rem;letter-spacing:.2em;
+  color:rgba(255,255,255,.9);text-transform:uppercase;padding-top:34px;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
 }
+.uc-label{position:relative;z-index:2;font-size:.74rem}
+.uc-screen .win{
+  position:relative;z-index:1;width:78%;margin:0 auto;background:rgba(5,7,14,.55);
+  border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 10px 12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+.uc-screen .win i{display:block;height:5px;border-radius:3px;background:rgba(255,255,255,.28);margin-bottom:7px}
+.uc-screen .win i:nth-child(1){width:82%}
+.uc-screen .win i:nth-child(2){width:64%}
+.uc-screen .win i:nth-child(3){width:72%}
+.uc-screen .win b{display:block;height:22px;margin-top:9px;border-radius:5px;background:linear-gradient(90deg,rgba(46,91,255,.55),rgba(123,63,228,.35))}
 .uc-screen::after{
   content:";position:absolute;top:0;left:0;right:0;height:26px;background:rgba(0,0,0,.4);
   border-bottom:1px solid rgba(255,255,255,.14);
@@ -469,7 +484,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .done-pane p{color:var(--muted);font-weight:300;max-width:52ch;margin:0 auto 24px}
 .msg-preview{
   text-align:left;background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:16px;
-  padding:20px;font-size:.88rem;color:#cfd4e3;white-space:pre-wrap;max-height:190px;overflow:auto;margin-bottom:24px;
+  padding:20px;font-size:.88rem;color:#cfd4e3;white-space:pre-wrap;overflow-wrap:break-word;max-height:190px;overflow-y:auto;overflow-x:hidden;margin-bottom:24px;
 }
 .done-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
@@ -522,10 +537,21 @@ footer{
   #diopter .wrap{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
+@media (max-width:700px){
+  .balance{height:300px}
+  .balance .plate{width:132px}
+  .balance .plate .val{font-size:2rem}
+  .balance .plate .cap{font-size:.58rem;letter-spacing:.18em}
+  .balance .side.l{left:18%}
+  .balance .side.r{right:18%}
+  .balance .beam{width:64%}
+  .balance .base{width:150px}
+}
 @media (max-width:640px){
   section{padding:76px 20px}
   .hero-stats{gap:20px}
   .foot-grid{grid-template-columns:1fr}
+  #fab .mini{display:none}
   #fab .cta span{display:none}
   #fab .cta{width:54px;height:54px;padding:0;justify-content:center;border-radius:50%}
   .step-nav .btn{width:100%}
@@ -580,7 +606,7 @@ footer{
   <div class="head-right">
     <div class="price-chip">
       <svg viewBox="0 0 60 26" fill="none"><rect x="1" y="4" width="24" height="17" rx="6" stroke="#ff4d1c" stroke-width="2.4"/><rect x="35" y="4" width="24" height="17" rx="6" stroke="#ff4d1c" stroke-width="2.4"/><path d="M25 10 Q30 7 35 10" stroke="#ff4d1c" stroke-width="2.4"/></svg>
-      A partir de <b>US$&nbsp;299</b>
+      Óculos Pro 2 · <b>US$&nbsp;299</b>
     </div>
     <a class="btn btn-blue" href="#lead">Quero um site assim</a>
     <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -689,12 +715,16 @@ footer{
 
 <!-- 360 -->
 <section id="view360" data-sec data-3d="center">
-  <span class="kicker reveal" style="justify-content:center">Inspeção real</span>
-  <h2 class="h-lg reveal d1">Arraste. Gire. Inspecione.</h2>
-  <p class="lead reveal d2" style="margin:18px auto 0;text-align:center">Este não é um PNG. É um modelo 3D em tempo real rodando no seu navegador — clique e arraste para ver cada ângulo.</p>
-  <div class="hint-circle reveal d3" id="dragCircle"><span>◈<br>arraste<br>o modelo</span></div>
-  <div class="view360-tags reveal d4">
-    <span>Aro 16% mais fino</span><span>LED de status</span><span>Dobradiça magnética</span><span>63g</span>
+  <div class="v360-top">
+    <span class="kicker reveal" style="justify-content:center">Inspeção real</span>
+    <h2 class="h-lg reveal d1">Arraste. Gire. Inspecione.</h2>
+    <p class="lead reveal d2" style="margin:18px auto 0;text-align:center">Este não é um PNG. É um modelo 3D em tempo real rodando no seu navegador — clique e arraste para ver cada ângulo.</p>
+  </div>
+  <div class="v360-bottom">
+    <div class="hint-circle reveal d3" id="dragCircle"><span>◈<br>arraste<br>o modelo</span></div>
+    <div class="view360-tags reveal d4">
+      <span>Aro 16% mais fino</span><span>LED de status</span><span>Dobradiça magnética</span><span>63g</span>
+    </div>
   </div>
 </section>
 
@@ -704,17 +734,17 @@ footer{
   <h2 class="h-xl grad-text reveal d1">Feito para o jeito<br>que você realmente vive.</h2>
   <div class="uc-grid">
     <div class="uc-card tilt reveal">
-      <div class="art g1"></div><div class="uc-screen">GAME · 130"</div>
+      <div class="art g1"></div><div class="uc-screen"><span class="uc-label">GAME · 130"</span><div class="win"><i></i><i></i><i></i><b></b></div></div>
       <span class="tag">Gaming</span><h3>Um telão de jogos, em qualquer lugar</h3>
       <p>Switch 2, Steam Deck, PC ou nuvem. Deite no sofá com uma tela de 130" na sua frente.</p>
     </div>
     <div class="uc-card tilt reveal d1">
-      <div class="art g2"></div><div class="uc-screen">4K · HDR</div>
+      <div class="art g2"></div><div class="uc-screen"><span class="uc-label">4K · HDR</span><div class="win"><i></i><i></i><i></i><b></b></div></div>
       <span class="tag">Entretenimento</span><h3>Maratona no avião, sem jet lag de olho</h3>
       <p>Cinema privativo a 1600 nits enquanto a bateria do seu device carrega no dock.</p>
     </div>
     <div class="uc-card tilt reveal d2">
-      <div class="art g3"></div><div class="uc-screen">3 TELAS</div>
+      <div class="art g3"></div><div class="uc-screen"><span class="uc-label">3 TELAS</span><div class="win"><i></i><i></i><i></i><b></b></div></div>
       <span class="tag">Produtividade</span><h3>Vibe coding em três monitores</h3>
       <p>SpaceWalker abre um espaço de trabalho multi-tela onde quer que você esteja — café, trem, praia.</p>
     </div>
@@ -739,17 +769,17 @@ footer{
     <div class="rev-card reveal">
       <div class="stars">★★★★★</div>
       <p>"Esqueci que estava usando. Série A, terceiro episódio, zero fadiga — foi aí que entendi os 63 gramas."</p>
-      <div class="who"><span class="av">MR</span><div><b>Marina R.</b><span>Review verificada · Cineasta</span></div></div>
+      <div class="who"><span class="av">MR</span><div><b>Marina R.</b><span>Avaliação verificada · Cineasta</span></div></div>
     </div>
     <div class="rev-card reveal d1">
       <div class="stars">★★★★★</div>
       <p>"Vibe coding no trem com três telas. O dioptrio embutido acabou com meu óculos de grau embaixo. Absurdo."</p>
-      <div class="who"><span class="av">TL</span><div><b>Thiago L.</b><span>Review verificada · Dev full-stack</span></div></div>
+      <div class="who"><span class="av">TL</span><div><b>Thiago L.</b><span>Avaliação verificada · Dev full-stack</span></div></div>
     </div>
     <div class="rev-card reveal d2">
       <div class="stars">★★★★★</div>
       <p>"Comprei para jogar na viagem e virei usuário de produtividade. O dock mini no Switch 2 é vício."</p>
-      <div class="who"><span class="av">CS</span><div><b>Camila S.</b><span>Review verificada · Designer</span></div></div>
+      <div class="who"><span class="av">CS</span><div><b>Camila S.</b><span>Avaliação verificada · Designer</span></div></div>
     </div>
   </div>
 </section>
@@ -864,7 +894,7 @@ footer{
     </div>
   </div>
   <div class="foot-bottom">
-    <span>© 2026 <b>recreio.ai</b> — sites que vendem por experiência.</span>
+    <span>© 2026 <b>recreio.ai</b> — sites 3D que captam e qualificam leads.</span>
     <span>Redesign conceitual sem fins comerciais · VITURE é marca de seus respectivos donos.</span>
   </div>
 </footer>
@@ -1158,7 +1188,7 @@ try {
 } catch(e) { canvas.style.display='none'; }
 
 if (renderer) {
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));
   renderer.setSize(innerWidth,innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.08;
@@ -1281,13 +1311,13 @@ if (renderer) {
     specs:     { x: 2.4,  y: .05, s:.5,  ry:.5,   rx:-.06,op:.3,  int:false },
     diopter:   { x: 0,    y: 0,   s:.8,   ry:.5,   rx:.1,  op:0,   int:false },
     weight:    { x: 0,    y: 0,   s:.8,   ry:.5,   rx:.1,  op:0,   int:false },
-    view360:   { x: 0,    y:-.55, s:.94, ry:.25,  rx:.08, op:1,   int:true  },
+    view360:   { x: 0,    y:-.15, s:.86, ry:.25,  rx:.08, op:1,   int:true  },
     usecases:  { x: 0,    y: 0,   s:.8,   ry:.5,   rx:.1,  op:0,   int:false },
     eco:       { x: 0,    y: 0,   s:.8,   ry:.5,   rx:.1,  op:0,   int:false },
     reviews:   { x: 0,    y: 0,   s:.8,   ry:.5,   rx:.1,  op:0,   int:false },
     lead:      { x: 0,    y: 0,   s:.8,   ry:.5,   rx:.1,  op:0,   int:false }
   };
-  const MOBILE = { hero:{x:0,y:-1.35,s:.5}, manifesto:{s:1.05,op:.1}, specs:{x:0,y:-1.5,s:.36,op:.14}, view360:{s:.6,y:-.45} };
+  const MOBILE = { hero:{x:0,y:-1.9,s:.38,op:.5}, manifesto:{s:1.05,op:.1}, specs:{x:0,y:-1.6,s:.32,op:.12}, view360:{s:.46,y:-.35} };
 
   let current = Object.assign({}, STATES.hero);
   let target = Object.assign({}, STATES.hero);
